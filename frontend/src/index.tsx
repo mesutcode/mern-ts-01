@@ -11,16 +11,16 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import App from './App'
 import Home from './Home'
-import Product from './Product'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import ProductDetails from './ProductDetails'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} element={<Home />} />
-      <Route path="product/:slug" element={<Product />} />
+      <Route path="product/:slug" element={<ProductDetails />} />
     </Route>
   )
 )
