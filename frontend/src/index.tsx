@@ -12,6 +12,10 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import Home from './Home'
 import Product from './Product'
+import axios from 'axios'
+
+axios.defaults.baseURL =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
