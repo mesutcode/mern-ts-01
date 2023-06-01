@@ -6,6 +6,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import App from './App'
@@ -13,6 +14,7 @@ import reportWebVitals from './reportWebVitals'
 import Home from './Home'
 import Product from './Product'
 import axios from 'axios'
+import { HelmetProvider } from 'react-helmet-async'
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/'
@@ -31,7 +33,9 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <HelmetProvider>
+      <RouterProvider router={router} />
+    </HelmetProvider>
   </React.StrictMode>
 )
 
