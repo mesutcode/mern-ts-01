@@ -3,6 +3,9 @@ import { Outlet } from 'react-router'
 import { Store } from './Store'
 import { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { LinkContainer } from 'react-router-bootstrap'
 
 function App() {
   const {
@@ -20,10 +23,13 @@ function App() {
 
   return (
     <div className="d-flex flex-column vh-100">
+      <ToastContainer position="bottom-center" limit={1} />
       <header>
         <Navbar expand="lg">
           <Container>
-            <Navbar.Brand>Ts mesutnisebin</Navbar.Brand>
+            <LinkContainer to={'/'}>
+              <Navbar.Brand>Ts mesutnisebin</Navbar.Brand>
+            </LinkContainer>
           </Container>
           <Nav>
             <Button variant={mode} onClick={switchModeHandler}>

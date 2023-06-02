@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useGetProductDetailsBySlugsQuery } from './hooks/productHooks'
 import LoadingBox from './LoadingBox'
 import MessageBox from './MessageBox'
-import { ApiError, getError } from './utils'
+import { ApiError, convertProductToCartProduct, getError } from './utils'
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import Rating from './Rating'
+import { Store } from './Store'
+import { toast } from 'react-toastify'
 
 export default function ProductDetails() {
   const params = useParams()
@@ -16,6 +18,29 @@ export default function ProductDetails() {
     isLoading,
     error,
   } = useGetProductDetailsBySlugsQuery(slug!)
+
+  const { state, dispatch } = useContext(Store)
+
+  const {
+    cart: { cartProducts },
+  } = state
+
+  const navigate = useNavigate()
+
+  const addToCartHandler = () => {
+    const existProduct = cartProducts.find((x) => x._id === product!._id)
+    const quantity = existProduct ? existProduct.quantity + 1 : 1
+    if (product!.countInStock < quantity) {
+      toast.warn('Sorry. Product is out of stock')
+      return
+    }
+    dispatch({
+      type: 'CART_ADD_PRODUCT',
+      payload: { ...convertProductToCartProduct(product!), quantity },
+    })
+    toast.success('Product added to the cart')
+    navigate('/cart')
+  }
 
   return isLoading ? (
     <LoadingBox />
@@ -74,7 +99,9 @@ export default function ProductDetails() {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
+                      <Button variant="primary" onClick={addToCartHandler}>
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}
