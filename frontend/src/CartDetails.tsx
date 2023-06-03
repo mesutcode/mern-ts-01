@@ -32,6 +32,13 @@ export default function CartDetails() {
     navigate('/signin?redirect=/shipping')
   }
 
+  const removeProductHandler = (product: CartProduct) => {
+    dispatch({
+      type: 'CART_REMOVE_PRODUCT',
+      payload: product,
+    })
+  }
+
   return (
     <div>
       <Helmet>
@@ -82,7 +89,10 @@ export default function CartDetails() {
                     </Col>
                     <Col md={3}>${product.price}</Col>
                     <Col md={2}>
-                      <Button variant={mode}>
+                      <Button
+                        variant={mode}
+                        onClick={() => removeProductHandler(product)}
+                      >
                         <i className="fas fa-trash"></i>
                       </Button>
                     </Col>

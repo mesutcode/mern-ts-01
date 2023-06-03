@@ -60,6 +60,7 @@ const initialState: AppState = {
 type Action =
   | { type: 'SWITCH_MODE' }
   | { type: 'CART_ADD_PRODUCT'; payload: CartProduct }
+  | { type: 'CART_REMOVE_PRODUCT'; payload: CartProduct }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -80,6 +81,13 @@ function reducer(state: AppState, action: Action): AppState {
       localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
 
       return { ...state, cart: { ...state.cart, cartProducts } }
+    case 'CART_REMOVE_PRODUCT': {
+      const cartProducts = state.cart.cartProducts.filter(
+        (product: CartProduct) => product._id !== action.payload._id
+      )
+      localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
+      return { ...state, cart: { ...state.cart, cartProducts } }
+    }
     default:
       return state
   }
