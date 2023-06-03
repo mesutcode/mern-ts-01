@@ -16,12 +16,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ProductDetails from './ProductDetails'
 import { StoreProvider } from './Store'
+import CartDetails from './CartDetails'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} element={<Home />} />
       <Route path="product/:slug" element={<ProductDetails />} />
+      <Route path="cart" element={<CartDetails />} />
     </Route>
   )
 )
