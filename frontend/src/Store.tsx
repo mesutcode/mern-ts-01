@@ -73,6 +73,7 @@ type Action =
   | { type: 'CART_ADD_PRODUCT'; payload: CartProduct }
   | { type: 'CART_REMOVE_PRODUCT'; payload: CartProduct }
   | { type: 'USER_SIGNIN'; payload: UserInfo }
+  | { type: 'USER_SIGNOUT' }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -102,6 +103,28 @@ function reducer(state: AppState, action: Action): AppState {
     }
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload }
+    case 'USER_SIGNOUT':
+      return {
+        mode:
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)')
+            ? 'dark'
+            : 'light',
+        cart: {
+          cartProducts: [],
+          paymentMethod: 'PayPal',
+          shippingAddress: {
+            fullName: '',
+            address: '',
+            postalCode: '',
+            city: '',
+            country: '',
+          },
+          productsPrice: 0,
+          shippingPrice: 0,
+          taxPrice: 0,
+          totalPrice: 0,
+        },
+      }
     default:
       return state
   }
