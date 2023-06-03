@@ -18,6 +18,7 @@ import ProductDetails from './ProductDetails'
 import { StoreProvider } from './Store'
 import CartDetails from './CartDetails'
 import Signin from './Signin'
+import SignUp from './hooks/SignUp'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="product/:slug" element={<ProductDetails />} />
       <Route path="cart" element={<CartDetails />} />
       <Route path="signin" element={<Signin />} />
+      <Route path="signup" element={<SignUp />} />
     </Route>
   )
 )
