@@ -17,6 +17,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ProductDetails from './ProductDetails'
 import { StoreProvider } from './Store'
 import CartDetails from './CartDetails'
+import Signin from './Signin'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route index={true} element={<Home />} />
       <Route path="product/:slug" element={<ProductDetails />} />
       <Route path="cart" element={<CartDetails />} />
+      <Route path="signin" element={<Signin />} />
     </Route>
   )
 )

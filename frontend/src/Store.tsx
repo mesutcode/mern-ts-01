@@ -28,9 +28,17 @@ export type Cart = {
   totalPrice: number
 }
 
+export type UserInfo = {
+  name: string
+  email: string
+  token: string
+  isAdmin: boolean
+}
+
 type AppState = {
   mode: string
   cart: Cart
+  userInfo?: UserInfo
 }
 
 const initialState: AppState = {
@@ -55,12 +63,16 @@ const initialState: AppState = {
     taxPrice: 0,
     totalPrice: 0,
   },
+  userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo')!)
+    : null,
 }
 
 type Action =
   | { type: 'SWITCH_MODE' }
   | { type: 'CART_ADD_PRODUCT'; payload: CartProduct }
   | { type: 'CART_REMOVE_PRODUCT'; payload: CartProduct }
+  | { type: 'USER_SIGNIN'; payload: UserInfo }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -88,6 +100,8 @@ function reducer(state: AppState, action: Action): AppState {
       localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
       return { ...state, cart: { ...state.cart, cartProducts } }
     }
+    case 'USER_SIGNIN':
+      return { ...state, userInfo: action.payload }
     default:
       return state
   }
