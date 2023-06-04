@@ -47,7 +47,7 @@ export default function ShippingAddressDetails() {
         country,
       })
     )
-    navigate('/paypal')
+    navigate('/payment')
   }
 
   return (

@@ -20,6 +20,7 @@ import CartDetails from './CartDetails'
 import Signin from './Signin'
 import SignUp from './SignUp'
 import ShippingAddressDetails from './ShippingAddressDetails'
+import PaymentMethodDetails from './PaymentMethodDetails'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       <Route path="signin" element={<Signin />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="shipping" element={<ShippingAddressDetails />} />
+      <Route path="payment" element={<PaymentMethodDetails />} />
     </Route>
   )
 )
