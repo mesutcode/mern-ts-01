@@ -21,6 +21,7 @@ import Signin from './Signin'
 import SignUp from './SignUp'
 import ShippingAddressDetails from './ShippingAddressDetails'
 import PaymentMethodDetails from './PaymentMethodDetails'
+import ProtectedRoute from './ProtectedRoute'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,8 +31,10 @@ const router = createBrowserRouter(
       <Route path="cart" element={<CartDetails />} />
       <Route path="signin" element={<Signin />} />
       <Route path="signup" element={<SignUp />} />
-      <Route path="shipping" element={<ShippingAddressDetails />} />
-      <Route path="payment" element={<PaymentMethodDetails />} />
+      <Route path="" element={<ProtectedRoute />}>
+        <Route path="shipping" element={<ShippingAddressDetails />} />
+        <Route path="payment" element={<PaymentMethodDetails />} />
+      </Route>
     </Route>
   )
 )
