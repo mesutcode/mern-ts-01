@@ -18,7 +18,8 @@ import ProductDetails from './ProductDetails'
 import { StoreProvider } from './Store'
 import CartDetails from './CartDetails'
 import Signin from './Signin'
-import SignUp from './hooks/SignUp'
+import SignUp from './SignUp'
+import ShippingAddressDetails from './ShippingAddressDetails'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="cart" element={<CartDetails />} />
       <Route path="signin" element={<Signin />} />
       <Route path="signup" element={<SignUp />} />
+      <Route path="shipping" element={<ShippingAddressDetails />} />
     </Route>
   )
 )

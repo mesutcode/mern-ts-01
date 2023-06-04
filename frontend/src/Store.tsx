@@ -74,6 +74,7 @@ type Action =
   | { type: 'CART_REMOVE_PRODUCT'; payload: CartProduct }
   | { type: 'USER_SIGNIN'; payload: UserInfo }
   | { type: 'USER_SIGNOUT' }
+  | { type: 'SAVE_SHIPPING_ADDRESS'; payload: ShippingAddress }
 
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -123,6 +124,14 @@ function reducer(state: AppState, action: Action): AppState {
           shippingPrice: 0,
           taxPrice: 0,
           totalPrice: 0,
+        },
+      }
+    case 'SAVE_SHIPPING_ADDRESS':
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: action.payload,
         },
       }
     default:
