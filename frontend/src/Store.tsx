@@ -34,7 +34,29 @@ export type UserInfo = {
   token: string
   isAdmin: boolean
 }
-
+export type User = {
+  id_: string
+  name: string
+  email: string
+  token: string
+  isAdmin: boolean
+}
+export type Order = {
+  _id: string
+  orderProducts: CartProduct[]
+  shippingAddress: ShippingAddress
+  paymentMethod: string
+  user: User
+  createdAt: Date
+  isPaid: boolean
+  paidAt: Date
+  isDelivered: boolean
+  deliveredAt: boolean
+  productsPrice: number
+  shippingPrice: number
+  taxPrice: number
+  totalPrice: number
+}
 type AppState = {
   mode: string
   cart: Cart
@@ -72,6 +94,7 @@ type Action =
   | { type: 'SWITCH_MODE' }
   | { type: 'CART_ADD_PRODUCT'; payload: CartProduct }
   | { type: 'CART_REMOVE_PRODUCT'; payload: CartProduct }
+  | { type: 'CART_CLEAR' }
   | { type: 'USER_SIGNIN'; payload: UserInfo }
   | { type: 'USER_SIGNOUT' }
   | { type: 'SAVE_SHIPPING_ADDRESS'; payload: ShippingAddress }
@@ -103,6 +126,8 @@ function reducer(state: AppState, action: Action): AppState {
       localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
       return { ...state, cart: { ...state.cart, cartProducts } }
     }
+    case 'CART_CLEAR':
+      return { ...state, cart: { ...state.cart, cartProducts: [] } }
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload }
     case 'USER_SIGNOUT':
