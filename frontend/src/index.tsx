@@ -23,6 +23,7 @@ import ShippingAddressDetails from './ShippingAddressDetails'
 import PaymentMethodDetails from './PaymentMethodDetails'
 import ProtectedRoute from './ProtectedRoute'
 import PlaceOrderDetails from './PlaceOrderDetails'
+import OrderDetails from './OrderDetails'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,6 +37,7 @@ const router = createBrowserRouter(
         <Route path="shipping" element={<ShippingAddressDetails />} />
         <Route path="payment" element={<PaymentMethodDetails />} />
         <Route path="placeorder" element={<PlaceOrderDetails />} />
+        <Route path="/order/:id" element={<OrderDetails />} />
       </Route>
     </Route>
   )
