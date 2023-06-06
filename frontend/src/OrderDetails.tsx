@@ -1,21 +1,36 @@
-import React, { useContext } from 'react'
-import { Store } from './Store'
+import React from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useGetOrderDetailsQuery } from './hooks/orderHooks'
+import {
+  useGetOrderDetailsQuery,
+  usePayOrderMutation,
+} from './hooks/orderHooks'
 import LoadingBox from './LoadingBox'
 import MessageBox from './MessageBox'
 import { Helmet } from 'react-helmet-async'
-import { Card, Col, ListGroup, Row } from 'react-bootstrap'
+import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { ApiError, getError } from './utils'
+import { toast } from 'react-toastify'
 
 export default function OrderDetails() {
-  const { state } = useContext(Store)
-  const { userInfo } = state
-
   const params = useParams()
   const { id: orderId } = params
 
-  const { data: order, isLoading, error } = useGetOrderDetailsQuery(orderId!)
+  const {
+    data: order,
+    isLoading,
+    error,
+    refetch,
+  } = useGetOrderDetailsQuery(orderId!)
+
+  const { mutateAsync: payOrder, isLoading: loadingPay } = usePayOrderMutation()
+
+  const testPayHandler = async () => {
+    await payOrder({ orderId: orderId! })
+    refetch()
+    toast.success('Order is paid')
+  }
+
+  const paidDate = `Paid at : ${order?.paidAt}`
   return isLoading ? (
     <LoadingBox></LoadingBox>
   ) : error ? (
@@ -57,7 +72,7 @@ export default function OrderDetails() {
               </Card.Text>
               {order.isPaid ? (
                 <MessageBox variant="success">
-                  Paid at
+                  {paidDate}
                   {/* {order.paidAt} */}
                 </MessageBox>
               ) : (
@@ -101,7 +116,7 @@ export default function OrderDetails() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Items</Col>
+                    <Col>Productss</Col>
                     <Col>${order.productsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
@@ -127,6 +142,15 @@ export default function OrderDetails() {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+                {!order.isPaid && (
+                  <ListGroup.Item>
+                    <div>
+                      <Button disabled={loadingPay} onClick={testPayHandler}>
+                        Test Pay
+                      </Button>
+                    </div>
+                  </ListGroup.Item>
+                )}
               </ListGroup>
             </Card.Body>
           </Card>
