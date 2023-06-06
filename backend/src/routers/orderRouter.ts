@@ -6,6 +6,17 @@ import { Product } from '../models/productModel'
 
 export const orderRouter = express.Router()
 
+// /api/order/mine for order history
+
+orderRouter.get(
+  'mine',
+  isAuth,
+  asyncHandler(async (req: Request, res: Response) => {
+    const orders = await OrderModel.find({ user: req.user._id })
+    res.json(orders)
+  })
+)
+
 // /api/orders/:id
 
 orderRouter.get(
