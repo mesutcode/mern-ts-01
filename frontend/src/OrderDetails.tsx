@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   useGetOrderDetailsQuery,
+  //useGetPaypalClientIdQuery,
   usePayOrderMutation,
 } from './hooks/orderHooks'
 import LoadingBox from './LoadingBox'
@@ -10,6 +11,12 @@ import { Helmet } from 'react-helmet-async'
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { ApiError, getError } from './utils'
 import { toast } from 'react-toastify'
+// import {
+//   PayPalButtons,
+//   PayPalButtonsComponentProps,
+//   SCRIPT_LOADING_STATE,
+//   usePayPalScriptReducer,
+// } from '@paypal/react-paypal-js'
 
 export default function OrderDetails() {
   const params = useParams()
@@ -29,6 +36,64 @@ export default function OrderDetails() {
     refetch()
     toast.success('Order is paid')
   }
+
+  // PayPal Method Code
+
+  // const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer()
+
+  // const { data: paypalConfig } = useGetPaypalClientIdQuery()
+
+  // useEffect(() => {
+  //   if (paypalConfig && paypalConfig.clientId) {
+  //     const loadPaypalScript = async () => {
+  //       paypalDispatch({
+  //         type: 'resetOptions',
+  //         value: {
+  //           'client-id': paypalConfig!.clientId,
+  //           currency: 'USD',
+  //         },
+  //       })
+  //       paypalDispatch({
+  //         type: 'setLoadingStatus',
+  //         value: SCRIPT_LOADING_STATE.PENDING,
+  //       })
+  //     }
+  //     loadPaypalScript()
+  //   }
+  // }, [paypalConfig, paypalDispatch])
+
+  // const paypalButtonTransactionProps: PayPalButtonsComponentProps = {
+  //   style: { layout: 'vertical' },
+  //   createOrder(data, actions) {
+  //     return actions.order
+  //       .create({
+  //         purchase_units: [
+  //           {
+  //             amount: {
+  //               value: order!.totalPrice.toString(),
+  //             },
+  //           },
+  //         ],
+  //       })
+  //       .then((orderID: string) => {
+  //         return orderID
+  //       })
+  //   },
+  //   onApprove(data, actions) {
+  //     return actions.order!.capture().then(async (details) => {
+  //       try {
+  //         await payOrder({ orderId: orderId!, ...details })
+  //         refetch()
+  //         toast.success('Order is paid successfully')
+  //       } catch (err) {
+  //         toast.error(getError(err as ApiError))
+  //       }
+  //     })
+  //   },
+  //   onError: (err) => {
+  //     toast.error(getError(err as ApiError))
+  //   },
+  // }
 
   const paidDate = `Paid at : ${order?.paidAt}`
   return isLoading ? (
@@ -142,6 +207,27 @@ export default function OrderDetails() {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
+                {/* {!order.isPaid && (
+                  <ListGroup.Item>
+                    {isPending ? (
+                      <LoadingBox />
+                    ) : isRejected ? (
+                      <MessageBox variant="danger">
+                        Error in connecting to PayPal
+                      </MessageBox>
+                    ) : (
+                      <div>
+                        <PayPalButtons
+                          {...paypalButtonTransactionProps}
+                        ></PayPalButtons>
+                        <Button onClick={testPayHandler}>Test Pay</Button>
+                      </div>
+                    )}
+                    {loadingPay && <LoadingBox></LoadingBox>}
+                  </ListGroup.Item>
+                )} */}
+
                 {!order.isPaid && (
                   <ListGroup.Item>
                     <div>

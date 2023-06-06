@@ -24,6 +24,7 @@ import PaymentMethodDetails from './PaymentMethodDetails'
 import ProtectedRoute from './ProtectedRoute'
 import PlaceOrderDetails from './PlaceOrderDetails'
 import OrderDetails from './OrderDetails'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,13 +50,15 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <StoreProvider>
-      <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          {/* The rest of your application */}
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </HelmetProvider>
+      <PayPalScriptProvider options={{ 'client-id': 'sb' }} deferLoading={true}>
+        <HelmetProvider>
+          <QueryClientProvider client={queryClient}>
+            {/* The rest of your application */}
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </HelmetProvider>
+      </PayPalScriptProvider>
     </StoreProvider>
   </React.StrictMode>
 )
