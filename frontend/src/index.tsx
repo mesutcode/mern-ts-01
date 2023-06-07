@@ -25,6 +25,7 @@ import ProtectedRoute from './ProtectedRoute'
 import PlaceOrderDetails from './PlaceOrderDetails'
 import OrderDetails from './OrderDetails'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import OrderHistoryDetails from './OrderHistoryDetails'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         <Route path="payment" element={<PaymentMethodDetails />} />
         <Route path="placeorder" element={<PlaceOrderDetails />} />
         <Route path="/order/:id" element={<OrderDetails />} />
+        <Route path="/orderhistory" element={<OrderHistoryDetails />} />
       </Route>
     </Route>
   )

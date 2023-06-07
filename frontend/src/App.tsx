@@ -61,7 +61,14 @@ function App() {
               Cart
             </Link>
             {userInfo ? (
-              <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+              <NavDropdown
+                title={userInfo.name}
+                id="basic-nav-dropdown"
+                className="dropdown-menu-start"
+              >
+                <LinkContainer to="/orderhistory">
+                  <NavDropdown.Item>Order History</NavDropdown.Item>
+                </LinkContainer>
                 <Link
                   to="#signout"
                   className="dropdown-item"
