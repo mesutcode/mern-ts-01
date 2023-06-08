@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { Helmet } from 'react-helmet-async'
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import MessageBox from './MessageBox'
+import { FaMinusCircle, FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
 
 export default function CartDetails() {
   const {
@@ -74,7 +75,7 @@ export default function CartDetails() {
                         variant={mode}
                         disabled={product.quantity === 1}
                       >
-                        <i className="fas fa-minus-circle"></i>
+                        <FaMinusCircle className="cart-icons" />
                       </Button>{' '}
                       <span>{product.quantity}</span>
                       <Button
@@ -84,7 +85,7 @@ export default function CartDetails() {
                         }
                         disabled={product.quantity === product.countInStock}
                       >
-                        <i className="fas fa-plus-circle"></i>
+                        <FaPlusCircle className="cart-icons" />
                       </Button>
                     </Col>
                     <Col md={3}>${product.price}</Col>
@@ -93,7 +94,7 @@ export default function CartDetails() {
                         variant={mode}
                         onClick={() => removeProductHandler(product)}
                       >
-                        <i className="fas fa-trash"></i>
+                        <FaTrashAlt className="cart-icons" />
                       </Button>
                     </Col>
                   </Row>
